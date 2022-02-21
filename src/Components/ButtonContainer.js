@@ -1,14 +1,15 @@
 import React from 'react'
+import './ButtonContainer.css';
 
 export default function ButtonContainer(props) {
 
     const { setRandomNumbers } = props
 
     return(
-        <button
+        <button className='button'
             onClick={setRandomNumbers}
         >
-            Click me
+            Draw your characters
         </button>
     )
 }
