@@ -12,7 +12,7 @@ const checkStatus = response => {
 
 
 
-export const getAllCharacters = () => {
+export const getAllCharacters = () => 
 
     fetch("https://swapi.dev/api/people/")
         .then(checkStatus);
@@ -32,7 +32,7 @@ export const getAllCharacters = () => {
     // console.log("All characters have been collected")
 
     // return allCharacters
-}
+
     // .then((result) => {
     //     console.log(result);
     //     return result.nextPage();
