@@ -50,8 +50,6 @@ function App() {
             "firstPlayer": serverData[firstRandom],
             "secondPlayer": serverData[secondRandom]
         })
-        // cardInfo["1"] = serverData[firstRandom]
-        // cardInfo["2"] = serverData[secondRandom]
         console.log(cardInfo)
 
     }
