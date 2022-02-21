@@ -1,12 +1,14 @@
 import React from 'react'
 
-export default function ButonContainer(props) {
+export default function ButtonContainer(props) {
 
-    const { setRandomNumber } = props
+    const { setRandomNumbers } = props
 
     return(
         <button
-            onClick={setRandomNumber}
-        >Click me</button>
+            onClick={setRandomNumbers}
+        >
+            Click me
+        </button>
     )
 }

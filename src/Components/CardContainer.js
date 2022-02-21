@@ -1,13 +1,22 @@
 import React from 'react'
+import Card from './Card.js'
 
 export default function CardContainer(props) {
 
     const { cardInfo } = props
 
+    console.log(cardInfo)
+
     return (
         <div>
-            <Card info={cardInfo[0]}/>
-            <Card info={cardInfo[1]} />
+            {  
+                cardInfo && (
+                <>
+                    <Card info={cardInfo.firstPlayer} />
+                    <Card info={cardInfo.secondPlayer} />
+                </>
+            )
+            }
         </div>
     )
 }

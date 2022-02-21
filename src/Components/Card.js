@@ -1,12 +1,14 @@
 import React from 'react'
 
-function Card(props) {
+export default function Card(props) {
 
     const { info } = props
 
-  return (
-    <div>{info}</div>
-  )
-}
+    console.log(info)
 
-export default Card
+    return (
+        <div>
+            <div>{info && info.name}</div>
+        </div>
+    )
+}

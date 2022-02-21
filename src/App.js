@@ -1,8 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react'
-import CardContainer from './CardContainter.js'
-import ButtonContainer from './ButtonContainer.js'
+import { useState, useEffect } from 'react'
+import CardContainer from './Components/CardContainer.js'
+import ButtonContainer from './Components/ButtonContainer.js'
 import { getAllCharacters } from './Adapter/client.js'
 
 function App() {
@@ -20,23 +20,42 @@ function App() {
 
     const [serverData, setServerData] = useState([])
 
-    const [cardInfo, setCardInfo] = useState([])
+    const [cardInfo, setCardInfo] = useState({})
 
-    useEffect(()=>{
+    // var cardInfo = {
+    //     "1": {},
+    //     "2": {},
+    // }
+
+    useEffect(() => {
         grabData()
         console.log(serverData)
     }, [])
 
     function setRandomNumbers(){
-        let randomPicks=[]
+        console.log("CLICK")
 
-        firstRandom = Math.floor(Math.random()*10);
-        secondRandom = Math.floor(Math.random()*10);
+        let firstRandom = Math.floor(Math.random()*10);
+        let secondRandom = Math.floor(Math.random()*10);
 
-        randomPicks.push(firstRandom)
-        randomPicks.push(secondRandom)
-        setCardInfo(serverData[firstRandom],serverData[secondRandom])
+        if (firstRandom == secondRandom){
+            while (firstRandom == secondRandom){
+              firstRandom = Math.floor(Math.random()*10)
+            }
+        }
+
+        console.log(firstRandom)
+        console.log(secondRandom)
+        setCardInfo({
+            "firstPlayer": serverData[firstRandom],
+            "secondPlayer": serverData[secondRandom]
+        })
+        // cardInfo["1"] = serverData[firstRandom]
+        // cardInfo["2"] = serverData[secondRandom]
+        console.log(cardInfo)
+
     }
+
 
     return (
         <div className="App">
@@ -45,7 +64,7 @@ function App() {
                 setRandomNumbers={setRandomNumbers}
               />
             <CardContainer
-                cardInfo={CardInfo}
+                cardInfo={cardInfo}
               />
 
         </div>
