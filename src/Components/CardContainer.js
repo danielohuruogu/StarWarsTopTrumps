@@ -1,55 +1,32 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from './Card.js'
 
 import './CardContainer.css'
 
 export default function CardContainer(props) {
 
-    const { cardInfo, setRandomNumbers } = props
-
-    console.log(cardInfo)
-
-    const [ attributes, setAttributes ] = useState({
-        one: 0,
-        two: 0,
-    })
-
-    useEffect(()=>{
-        console.log(attributes)
-    }, [attributes])
-
-    function compareAttributes(){
-        console.log(attributes)
-    // compare selected attributes
-    // if (1 is bigger than the other) {
-    //     console log that that card is the winner
-    // }
-    }
+    const { cardInfo, setRandomNumbers, compareAttributes, players } = props
 
     return (
-        <div>
-            {  
-                cardInfo && (
-                <div className='cardContainer'>
-                    <Card
-                        name="one"
-                        info={cardInfo.firstPlayer}
-                        setAttributes={setAttributes}
-                        />
-                    <button
-                        onClick={setRandomNumbers}
-                    >
-                        Draw your characters
-                    </button>
-                    <Card
-                        name="two"
-                        info={cardInfo.secondPlayer}
-                        setAttributes={setAttributes}
-                        />
-                </div>
-            )
-            }
-        </div>
+            <div className='cardContainer'>
+                <Card
+                    name="one"
+                    info={cardInfo && cardInfo.firstPlayer}
+                    attributes={players[0]}
+                    compareAttri={compareAttributes}
+                    />
+                <button className='drawBtn'
+                    onClick={setRandomNumbers}
+                >
+                    Draw your characters
+                </button>
+                <Card
+                    name="two"
+                    info={cardInfo && cardInfo.secondPlayer}
+                    attributes={players[1]}
+                    compareAttri={compareAttributes}
+                    />
+            </div>
     )
 }
 

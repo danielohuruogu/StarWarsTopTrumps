@@ -1,8 +1,14 @@
-.cardContainer{
+.cardContainer {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     visibility: hidden;
+    height: 50%;
+}
+
+.drawBtn {
+    height: max-content;
 }
 
 .visible {

@@ -50,6 +50,39 @@ function App() {
         }
     }
 
+    var playerOne = ["attr", null]
+
+    var playerTwo = ["attr", null]
+
+    var players = [playerOne, playerTwo]
+
+    
+    function compareAttributes(){
+        // check if there are attributes from each selected - if their values are no longer 0
+        if ( playerOne[1] !== null && playerTwo[1] !== null )
+        {
+            console.log('attribute selected - ready for comparison')
+        // then check if they're the same attribute - have to compare height for height, not height for age
+
+            if ( playerOne[0] === playerTwo[0] )
+            {
+                console.log('same attributes selected')
+                if ( playerOne[1] > playerTwo[1])
+                {
+                    console.log('Player One wins!!')
+                } else if ( playerOne[1] < playerTwo[1])
+                {
+                    console.log('Player Two wins!!')
+                } else {
+                    console.log('Draw - pick another attribute')
+                }
+            } else {
+                console.log('different attributes selected - try something else')
+            }
+        }
+        // then check if one's higher than the other
+    }
+
 
     function setRandomNumbers(){
         console.log("CLICK")
@@ -57,20 +90,28 @@ function App() {
         let firstRandom = Math.floor(Math.random()*10);
         let secondRandom = Math.floor(Math.random()*10);
 
+        // in case the random numbers end up being the same, do it again
         if (firstRandom === secondRandom){
             while (firstRandom === secondRandom){
               firstRandom = Math.floor(Math.random()*10)
             }
         }
 
-        console.log(firstRandom)
-        console.log(secondRandom)
+        // set the card data to one of the characters in the server data
         setCardInfo({
             "firstPlayer": serverData[firstRandom],
             "secondPlayer": serverData[secondRandom]
         })
-        console.log(cardInfo)
 
+        clearSelection();
+    }
+
+    function clearSelection(){
+        for (let player of players) {
+            console.log(player);
+            player[0]="attr";
+            player[1]=null
+        }
     }
 
 
@@ -89,6 +130,8 @@ function App() {
             <CardContainer
                 cardInfo={cardInfo}
                 setRandomNumbers={setRandomNumbers}
+                compareAttributes={compareAttributes}
+                players={players}
               />
             <ResultsContainer
                 gameState={gameState}
@@ -99,18 +142,3 @@ function App() {
 }
 
 export default App;
-
-    // const grabData = () => {
-    //     getAllCharacters()
-    //     .then(res => res.json())
-    //     .then(data => {
-    //         console.log(data);
-    //         setServerData(data)
-    //     }).catch(err => {
-    //     console.log(err.response)
-    //     err.response.json().then(res=> {
-    //       console.log(res)
-    //     })
-    // })
-  // }
-      // grabData();

@@ -1,14 +1,25 @@
-.card{
+.card {
     /* Created with https://www.css-gradient.com */
     background: #D1711A;
     background: -webkit-linear-gradient(bottom, #D1711A, #FFFF01);
     background: -moz-linear-gradient(bottom, #D1711A, #FFFF01);
     background: linear-gradient(to top, #D1711A, #FFFF01);
-    height: 50%;
-    width: 30%;
+    height: 65%;
+    width: 25%;
     margin: 2%;
     border: 3px solid black;
     border-radius: 3%;
+    /* visibility: hidden; */
+}
+
+.cardInfo {
+    position: relative;
+    top: 10%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .selected{

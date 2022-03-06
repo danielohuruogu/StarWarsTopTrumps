@@ -4,23 +4,30 @@ import './Card.css';
 
 export default function Card(props) {
 
-    const { info, name, setAttributes } = props
+    const { info, name, attributes, setAttributes, compareAttri } = props
 
-    console.log(info)
+    // console.log(info)
+    console.log(attributes)
 
     function attributeClick(e) {
         var cardAttrDiv = e.target
-        var cardAttrName = e.target.getAttribute('name')
-        setAttributes({
-            [name]: e.target.value
-        })
+        // setAttributes({
+        //     ...attributes,
+        //     [name]: {
+        //         [e.target.getAttribute('name')] : e.target.getAttribute('value')
+        //     } 
+        // })
+        attributes[0] = e.target.getAttribute('name')
+        attributes[1] = e.target.getAttribute('value')
+        
         cardAttrDiv.classList.toggle('selected')
+        compareAttri()
     }
 
     return (
         <div className='card'>
-            {info && (
-                <>
+            {info ? (
+                <div className='cardInfo'>
                     <div
                         name="name"
                         value={info.name}
@@ -56,7 +63,12 @@ export default function Card(props) {
                         >
                             No. of film appearances: {info.films.length}
                         </div>
-                </>
+                </div>
+                ) : 
+                (
+                    <div className='cardInfo'>
+                        WHO WILL YOU GET?
+                    </div>
                 )}
         </div>
     )
