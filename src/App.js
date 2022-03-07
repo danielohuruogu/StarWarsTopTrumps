@@ -2,6 +2,7 @@
 import './App.css';
 import { useState, useEffect } from 'react'
 import CardContainer from './Components/CardContainer.js'
+import Card from './Components/Card.js'
 import ResultsContainer from './Components/ResultsContainer.js'
 import { getAllCharacters } from './Adapter/client.js'
 
@@ -103,15 +104,23 @@ function App() {
             "secondPlayer": serverData[secondRandom]
         })
 
+        // clear the previous selection on each click
         clearSelection();
     }
 
     function clearSelection(){
+        // reset the array of values to their initial values
         for (let player of players) {
             console.log(player);
             player[0]="attr";
             player[1]=null
         }
+
+        // grab each selection and remove the class name that highlights it
+        var selection = document.querySelectorAll('.attr')
+        selection.forEach(attri => {
+            attri.classList.remove('selected')
+        })
     }
 
 
@@ -127,12 +136,25 @@ function App() {
                 Click to Start
             </button>
 
-            <CardContainer
-                cardInfo={cardInfo}
-                setRandomNumbers={setRandomNumbers}
-                compareAttributes={compareAttributes}
-                players={players}
-              />
+            <div className='cardContainer'>
+                <Card
+                    name="one"
+                    info={cardInfo && cardInfo.firstPlayer}
+                    attributes={players[0]}
+                    compareAttri={compareAttributes}
+                    />
+                <button className='drawBtn'
+                    onClick={setRandomNumbers}
+                >
+                    Draw your characters
+                </button>
+                <Card
+                    name="two"
+                    info={cardInfo && cardInfo.secondPlayer}
+                    attributes={players[1]}
+                    compareAttri={compareAttributes}
+                    />
+            </div>
             <ResultsContainer
                 gameState={gameState}
             />

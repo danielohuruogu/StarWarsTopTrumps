@@ -20,7 +20,7 @@ export default function Card(props) {
         attributes[0] = e.target.getAttribute('name')
         attributes[1] = e.target.getAttribute('value')
         
-        cardAttrDiv.classList.toggle('selected')
+        cardAttrDiv.classList.add('selected')
         compareAttri()
     }
 
@@ -28,35 +28,35 @@ export default function Card(props) {
         <div className='card'>
             {info ? (
                 <div className='cardInfo'>
-                    <div
+                    <div className='attr'
                         name="name"
                         value={info.name}
                         onClick={attributeClick}
                         >
                             Name: {info.name}
                         </div>
-                    <div
+                    <div className='attr'
                         name="birth_year"
                         value={info.birth_year}
                         onClick={attributeClick}
                         >
                             Birth year: {info.birth_year}
                         </div>
-                    <div
+                    <div className='attr'
                         name="height"
                         value={parseInt(info.height)}
                         onClick={attributeClick}
                         >
                             Height: {parseInt(info.height)} cm
                         </div>
-                    <div
+                    <div className='attr'
                         name="mass"
                         value={parseInt(info.mass)}
                         onClick={attributeClick}
                         >
                             Mass: {parseInt(info.mass)}
                         </div>
-                    <div
+                    <div className='attr'
                         name="films.length"
                         value={info.films.length}
                         onClick={attributeClick}
