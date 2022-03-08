@@ -4,24 +4,39 @@ import { useState, useEffect } from 'react'
 import CardContainer from './Components/CardContainer.js'
 import Card from './Components/Card.js'
 import ResultsContainer from './Components/ResultsContainer.js'
-import { getAllCharacters } from './Adapter/client.js'
 
 function App() {
 
+    const checkStatus = response => {
+        if (response.ok) {
+            return response
+        }
+        const error = new Error(response.statusText);
+        error.response = response;
+        return Promise.reject(error);
+    }
+    
+    var totalResults = []
+
     const grabData = () => {
-        getAllCharacters()
-        .then(res => res.json())
-        .then(data => {
-            // console.log(data);
-            setServerData(data.results)
-        }).catch(err => {
-            console.log(err.response)
-        })
+        var totalPages = 9
+
+        for (let i=1; i <= totalPages; i++) {
+            fetch("https://swapi.dev/api/people/?page=" + i)
+            .then(checkStatus)
+            .then(res => res.json())
+            .then(data => {
+                totalResults = [...totalResults, ...data.results]
+                setServerData(totalResults)
+            }).catch(err => {
+                console.log(err.response)
+            })
+        }
     }
 
     useEffect(() => {
         grabData()
-        // console.log(serverData)
+        console.log(serverData)
     }, [])
 
     const [serverData, setServerData] = useState([])
@@ -47,7 +62,6 @@ function App() {
 
     ////// STARTING THE GAME
 
-    ////// 
     // gameState 0: opening screen. Title and button. Button wil change game state to 1
     // gameState 1: card outline will appear with button to draw characters. will have restart button to send game state back to 0
     // gameState 2: draw character button clicked, card selected. ready for choosing attributes
@@ -64,42 +78,15 @@ function App() {
             gameState = 1;
         }
     }
-    
-    function compareAttributes(){
-        if (playerOne.attriValue !== null) { console.log('value changed')}
-        if (playerTwo.attriValue !== null) { console.log('value changed')}
-        // check if there are attributes from each selected - if their values are no longer 0
-        if ( playerOne.attriValue !== null && playerTwo.attriValue !== null )
-        {
-            console.log('attributes selected - ready for comparison')
-        // then check if they're the same attribute - have to compare height for height, not height for age
 
-            if ( playerOne.attri === playerTwo.attri )
-            {
-                console.log('same attributes selected')
-                if ( playerOne.attriValue > playerTwo.attriValue )
-                {
-                    console.log('Player One wins!!')
-                } else if ( playerOne.attriValue < playerTwo.attriValue )
-                {
-                    console.log('Player Two wins!!')
-                } else {
-                    console.log('Draw - pick another attribute')
-                }
-            } else {
-                console.log('different attributes selected - try something else')
-            }
-        }
-    }
-
-    function setRandomNumbers(){
-        let firstRandom = Math.floor(Math.random()*10);
-        let secondRandom = Math.floor(Math.random()*10);
+    function setRandomCharacter() {
+        let firstRandom = Math.floor(Math.random()*82);
+        let secondRandom = Math.floor(Math.random()*82);
 
         // in case the random numbers end up being the same, do it again
         if (firstRandom === secondRandom) {
             while (firstRandom === secondRandom) {
-              firstRandom = Math.floor(Math.random()*10)
+              firstRandom = Math.floor(Math.random()*82)
             }
         }
 
@@ -114,13 +101,8 @@ function App() {
     }
 
     function clearSelection() {
-        // reset the array of values to their initial values
-        // for (let player of players) {
-        //     console.log(player);
 
-        //     // player[0]="attr";
-        //     // player[1]=null
-        // }
+        // set comparison attributes to blank
         setPlayerOne({ attri: '', attriValue: null })
         setPlayerTwo({ attri: '', attriValue: null })
 
@@ -130,6 +112,7 @@ function App() {
             attri.classList.remove('selected')
         })
 
+        // refresh result state
         setResultState("")
     }
 
@@ -151,10 +134,9 @@ function App() {
                     info={cardInfo && cardInfo.firstPlayer}
                     playerState={playerOne}
                     setPlayerState={setPlayerOne}
-                    compareAttri={compareAttributes}
                     />
                 <button className='drawBtn'
-                    onClick={setRandomNumbers}
+                    onClick={setRandomCharacter}
                 >
                     Draw your characters
                 </button>
@@ -163,7 +145,6 @@ function App() {
                     info={cardInfo && cardInfo.secondPlayer}
                     playerState={playerTwo}
                     setPlayerState={setPlayerTwo}
-                    compareAttri={compareAttributes}
                     />
             </div>
             <ResultsContainer

@@ -4,7 +4,7 @@ import './Card.css';
 
 export default function Card(props) {
 
-    const { info, name, playerState, setPlayerState, compareAttri } = props
+    const { info, playerState, setPlayerState} = props
 
     console.log(info)
     console.log(playerState)
@@ -34,7 +34,6 @@ export default function Card(props) {
             'attriValue': parseInt(e.target.getAttribute('value'))
         })        
         cardAttrDiv.classList.add('selected')
-        // compareAttri()
     }
 
     return (
