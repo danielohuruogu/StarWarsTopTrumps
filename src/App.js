@@ -12,22 +12,40 @@ function App() {
         getAllCharacters()
         .then(res => res.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
             setServerData(data.results)
         }).catch(err => {
             console.log(err.response)
         })
     }
 
+    useEffect(() => {
+        grabData()
+        // console.log(serverData)
+    }, [])
+
     const [serverData, setServerData] = useState([])
 
     const [cardInfo, setCardInfo] = useState({})
 
+    const [playerOne, setPlayerOne] = useState({
+        attri: '',
+        attriValue : null
+    })
 
-    useEffect(() => {
-        grabData()
-        console.log(serverData)
-    }, [])
+    const [playerTwo, setPlayerTwo] = useState({
+        attri: '',
+        attriValue : null
+    })
+
+    var players = [playerOne, playerTwo]
+
+    const [resultState, setResultState] = useState("")
+
+
+    //// FUNCTIONS FOR...FUNCTIONALITY
+
+    ////// STARTING THE GAME
 
     ////// 
     // gameState 0: opening screen. Title and button. Button wil change game state to 1
@@ -37,41 +55,32 @@ function App() {
  
     var gameState = 0;
 
-    ////// STARTING THE GAME
-
-    function gameStart(){
+    function gameStart() {
 
         var cardContainer = document.querySelector('.cardContainer')
-        console.log(cardContainer)
 
         if (gameState === 0 && !cardContainer.classList.contains('visible')){
-            console.log(gameState)
             cardContainer.classList.toggle('visible');
-            gameState++
+            gameState = 1;
         }
     }
-
-    var playerOne = ["attr", null]
-
-    var playerTwo = ["attr", null]
-
-    var players = [playerOne, playerTwo]
-
     
     function compareAttributes(){
+        if (playerOne.attriValue !== null) { console.log('value changed')}
+        if (playerTwo.attriValue !== null) { console.log('value changed')}
         // check if there are attributes from each selected - if their values are no longer 0
-        if ( playerOne[1] !== null && playerTwo[1] !== null )
+        if ( playerOne.attriValue !== null && playerTwo.attriValue !== null )
         {
-            console.log('attribute selected - ready for comparison')
+            console.log('attributes selected - ready for comparison')
         // then check if they're the same attribute - have to compare height for height, not height for age
 
-            if ( playerOne[0] === playerTwo[0] )
+            if ( playerOne.attri === playerTwo.attri )
             {
                 console.log('same attributes selected')
-                if ( playerOne[1] > playerTwo[1])
+                if ( playerOne.attriValue > playerTwo.attriValue )
                 {
                     console.log('Player One wins!!')
-                } else if ( playerOne[1] < playerTwo[1])
+                } else if ( playerOne.attriValue < playerTwo.attriValue )
                 {
                     console.log('Player Two wins!!')
                 } else {
@@ -81,19 +90,15 @@ function App() {
                 console.log('different attributes selected - try something else')
             }
         }
-        // then check if one's higher than the other
     }
 
-
     function setRandomNumbers(){
-        console.log("CLICK")
-
         let firstRandom = Math.floor(Math.random()*10);
         let secondRandom = Math.floor(Math.random()*10);
 
         // in case the random numbers end up being the same, do it again
-        if (firstRandom === secondRandom){
-            while (firstRandom === secondRandom){
+        if (firstRandom === secondRandom) {
+            while (firstRandom === secondRandom) {
               firstRandom = Math.floor(Math.random()*10)
             }
         }
@@ -108,21 +113,25 @@ function App() {
         clearSelection();
     }
 
-    function clearSelection(){
+    function clearSelection() {
         // reset the array of values to their initial values
-        for (let player of players) {
-            console.log(player);
-            player[0]="attr";
-            player[1]=null
-        }
+        // for (let player of players) {
+        //     console.log(player);
+
+        //     // player[0]="attr";
+        //     // player[1]=null
+        // }
+        setPlayerOne({ attri: '', attriValue: null })
+        setPlayerTwo({ attri: '', attriValue: null })
 
         // grab each selection and remove the class name that highlights it
         var selection = document.querySelectorAll('.attr')
         selection.forEach(attri => {
             attri.classList.remove('selected')
         })
-    }
 
+        setResultState("")
+    }
 
     return (
         <div className="App">
@@ -140,7 +149,8 @@ function App() {
                 <Card
                     name="one"
                     info={cardInfo && cardInfo.firstPlayer}
-                    attributes={players[0]}
+                    playerState={playerOne}
+                    setPlayerState={setPlayerOne}
                     compareAttri={compareAttributes}
                     />
                 <button className='drawBtn'
@@ -151,12 +161,16 @@ function App() {
                 <Card
                     name="two"
                     info={cardInfo && cardInfo.secondPlayer}
-                    attributes={players[1]}
+                    playerState={playerTwo}
+                    setPlayerState={setPlayerTwo}
                     compareAttri={compareAttributes}
                     />
             </div>
             <ResultsContainer
                 gameState={gameState}
+                players={players}
+                resultState={resultState}
+                setResultState={setResultState}
             />
 
         </div>

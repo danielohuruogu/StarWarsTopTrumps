@@ -4,24 +4,37 @@ import './Card.css';
 
 export default function Card(props) {
 
-    const { info, name, attributes, setAttributes, compareAttri } = props
+    const { info, name, playerState, setPlayerState, compareAttri } = props
 
-    // console.log(info)
-    console.log(attributes)
+    console.log(info)
+    console.log(playerState)
+
+    var processBirthYear = (yearToProcess) => {
+        // change the birth year into a number
+        if (yearToProcess.includes('unknown')) {
+            return 'unknown'
+        } else {
+            var proccBirth_Year = parseInt(yearToProcess)
+
+            // if the birth year sent in the server contains ABY, then can call it a negative number
+            // more recent birth years are given a negative, so that the comparison function still works
+            // the more distant birth years will be bigger, meaning I don't have to change how it works
+            if (yearToProcess.includes('ABY')) {
+                proccBirth_Year = proccBirth_Year * -1;
+            }
+            return proccBirth_Year
+        }
+    }
 
     function attributeClick(e) {
         var cardAttrDiv = e.target
-        // setAttributes({
-        //     ...attributes,
-        //     [name]: {
-        //         [e.target.getAttribute('name')] : e.target.getAttribute('value')
-        //     } 
-        // })
-        attributes[0] = e.target.getAttribute('name')
-        attributes[1] = e.target.getAttribute('value')
-        
+
+        setPlayerState({
+            'attri': e.target.getAttribute('name'),
+            'attriValue': parseInt(e.target.getAttribute('value'))
+        })        
         cardAttrDiv.classList.add('selected')
-        compareAttri()
+        // compareAttri()
     }
 
     return (
@@ -37,7 +50,7 @@ export default function Card(props) {
                         </div>
                     <div className='attr'
                         name="birth_year"
-                        value={info.birth_year}
+                        value={processBirthYear(info.birth_year)}
                         onClick={attributeClick}
                         >
                             Birth year: {info.birth_year}
@@ -47,14 +60,14 @@ export default function Card(props) {
                         value={parseInt(info.height)}
                         onClick={attributeClick}
                         >
-                            Height: {parseInt(info.height)} cm
+                            Height: {info.height} cm
                         </div>
                     <div className='attr'
                         name="mass"
                         value={parseInt(info.mass)}
                         onClick={attributeClick}
                         >
-                            Mass: {parseInt(info.mass)}
+                            Mass: {info.mass}
                         </div>
                     <div className='attr'
                         name="films.length"
