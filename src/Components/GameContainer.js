@@ -26,6 +26,9 @@ const GameContainer = (props) => {
 
     const [resultState, setResultState] = useState("")
 
+    const [winnerState, setWinnerState] = useState("")
+
+
     var players = [playerOne, playerTwo]
 
     function drawCharacter() {
@@ -49,7 +52,7 @@ const GameContainer = (props) => {
         clearSelection();
     }
 
-    function checkForPoint() {
+    useEffect(()=> {
         console.log("checking...")
         console.log(players[0], players[1])
         // check first to see that attributes have been selected for both
@@ -73,11 +76,17 @@ const GameContainer = (props) => {
             } else {
                 setResultState("Different attributes selected - draw again")
             }
-        } else {
-            console.log("still waiting for both clicks, or is wrong")
         }
-    }
 
+        if ( scores['Player One'] > 4 || scores['Player Two'] > 4) {
+            // whoever's got more wins, and the state is set
+            if (scores['Player One'] > scores['Player Two']) {
+                setWinner("PLAYER 1 WINS")
+            } else {
+                setWinner("PLAYER 2 WINS")
+            }
+        }
+    }, [players[0],players[1]])
 
     function clearSelection() {
 
@@ -99,8 +108,12 @@ const GameContainer = (props) => {
         setResultState(`+1 ${player}`)
         setScore((prevState) => ({
             ...prevState,
-            [player]: prevState[player] += 1
+            [player]: prevState[player] + 1
         }))
+    }
+
+    function setWinner(message) {
+        setWinnerState(message)
     }
 
     function resetGame() {
@@ -109,53 +122,38 @@ const GameContainer = (props) => {
             clearSelection()
             setGameState(0);
         }
-        // setWinnerState("")
+        setWinnerState("")
         setScore({
             "Player One": 0,
             "Player Two": 0
         })
     }
 
-
     return (
         <>
             <div className='cardContainer'>
-                    <Card
-                        name="Player One"
-                        info={cardInfo && cardInfo.firstPlayer}
-                        // attributeClick={attributeClick}
-                        setPlayerAttriState={setPlayerOne}
-                        checkForPoint={checkForPoint}
-                        />
-                    <button className='drawBtn'
-                        onClick={drawCharacter}
-                    >
-                        Draw your characters
-                    </button>
-                    <Card
-                        name="Player Two"
-                        info={cardInfo && cardInfo.secondPlayer}
-                        // attributeClick={attributeClick}
-                        setPlayerAttriState={setPlayerTwo}
-                        checkForPoint={checkForPoint}
-                        />
+                <Card
+                    name="Player One"
+                    info={cardInfo && cardInfo.firstPlayer}
+                    setPlayerAttriState={setPlayerOne}
+                    />
+                <button className='drawBtn'
+                    onClick={drawCharacter}
+                >
+                    Draw your characters
+                </button>
+                <Card
+                    name="Player Two"
+                    info={cardInfo && cardInfo.secondPlayer}
+                    setPlayerAttriState={setPlayerTwo}
+                    />
             </div>
             <Scoreboard 
-                players={players}
                 resultState={resultState}
-                setResultState={setResultState}
                 scores={scores}
-                setScore={setScore}
-                incScore={incrementScore}
+                winnerState={winnerState}
+                resetGame={resetGame}
                 />
-            <div>
-                {/* <p>{winnerState}</p> */}
-                <button
-                    onClick={resetGame}
-                >
-                    Restart
-                </button>
-            </div>
         </>
     )
 }
