@@ -4,10 +4,9 @@ import './Card.css';
 
 export default function Card(props) {
 
-    const { info, playerState, setPlayerState} = props
-
-    console.log(info)
-    console.log(playerState)
+    const { name, info,
+        //  attributeClick,
+          setPlayerAttriState, checkForPoint } = props
 
     var processBirthYear = (yearToProcess) => {
         // change the birth year into a number
@@ -29,11 +28,18 @@ export default function Card(props) {
     function attributeClick(e) {
         var cardAttrDiv = e.target
 
-        setPlayerState({
+        // to handle 'unknown' and give it default value of 0
+        var attributeValue = parseInt(e.target.getAttribute('value'))
+        if (isNaN(attributeValue)) {
+            attributeValue = 0
+        }
+
+        setPlayerAttriState(() => ({
             'attri': e.target.getAttribute('name'),
-            'attriValue': parseInt(e.target.getAttribute('value'))
-        })        
+            'attriValue': attributeValue
+        }))        
         cardAttrDiv.classList.add('selected')
+        checkForPoint()
     }
 
     return (
