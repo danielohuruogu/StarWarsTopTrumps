@@ -1,14 +1,9 @@
 import React from 'react';
-import { useState } from 'react';
 import './Card.css';
 
 export default function Card(props) {
 
-    const { name, info,
-        //  attributeClick,
-          setPlayerAttriState,
-        //   checkForPoint
-        } = props
+    const { info, setPlayerAttriState } = props
 
     var processBirthYear = (yearToProcess) => {
         // change the birth year into a number
@@ -52,8 +47,9 @@ export default function Card(props) {
                         name="name"
                         value={info.name}
                         onClick={attributeClick}
-                        >
+                        ><strong>
                             Name: {info.name}
+                        </strong>
                         </div>
                     <div className='attr'
                         name="birth_year"

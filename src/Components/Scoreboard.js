@@ -1,17 +1,16 @@
-import react from 'react'
-import { useEffect, useState } from 'react';
-
+import './Scoreboard.css'
 
 export default function Scoreboard(props) {
 
     const { resultState, scores, winnerState, resetGame } = props
 
-
-    
     return (
-        <div>
-            <div>{scores['Player One']}</div><div>{scores['Player Two']}</div>
-            <p>{resultState}</p>
+        <div className="scoreBoard">
+            <div className="scores">
+                <span>{scores['Player One']}</span>
+                <span>{resultState}</span>
+                <span>{scores['Player Two']}</span>
+            </div>
             <p>{winnerState}</p>
             <button
                 onClick={resetGame}

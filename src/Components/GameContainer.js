@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import Card from './Card.js'
 import Scoreboard from './Scoreboard.js'
+import './GameContainer.css'
 
 const GameContainer = (props) => {
 
@@ -27,7 +28,6 @@ const GameContainer = (props) => {
     const [resultState, setResultState] = useState("")
 
     const [winnerState, setWinnerState] = useState("")
-
 
     var players = [playerOne, playerTwo]
 
@@ -86,7 +86,7 @@ const GameContainer = (props) => {
                 setWinner("PLAYER 2 WINS")
             }
         }
-    }, [players[0],players[1]])
+    }, [playerOne,playerTwo])
 
     function clearSelection() {
 
@@ -120,6 +120,7 @@ const GameContainer = (props) => {
         var cardContainer = document.querySelector('.cardContainer')
         if (gameState !== 0 && cardContainer.classList.contains('visible')){
             clearSelection()
+            cardContainer.classList.toggle('visible');
             setGameState(0);
         }
         setWinnerState("")
@@ -141,7 +142,7 @@ const GameContainer = (props) => {
                     onClick={drawCharacter}
                 >
                     Draw your characters
-                </button>
+                    </button>
                 <Card
                     name="Player Two"
                     info={cardInfo && cardInfo.secondPlayer}

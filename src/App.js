@@ -64,15 +64,16 @@ function App() {
     return (
         <div className="App">
         {/* <AppLogo/> */}
-            <h1>A Star Wars-inspired Top Trumps pun</h1>
-            <h2>Let's see who comes out on top</h2>
+            <div className="header">
+                <h1>A Star Wars-inspired Top Trumps pun</h1>
+                <h2>Let's see who comes out on top</h2>
 
-            <button className='button'
-                onClick={gameStart}
-            >
-                Click to Start
-            </button>
-
+                <button className='button'
+                    onClick={gameStart}
+                >
+                    Click to Start
+                </button>
+            </div>
             <GameContainer
                 serverData={serverData}
                 gameState={gameState}
