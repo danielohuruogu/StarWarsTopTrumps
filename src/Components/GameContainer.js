@@ -25,7 +25,7 @@ const GameContainer = (props) => {
         "Player Two": 0
     })
 
-    const [resultState, setResultState] = useState("")
+    const [resultState, setResultState] = useState("empty")
 
     const [winnerState, setWinnerState] = useState("")
 
@@ -101,7 +101,7 @@ const GameContainer = (props) => {
         })
 
         // refresh result state
-        setResultState("")
+        setResultState("empty")
     }
 
     function incrementScore(player) {

@@ -1,18 +1,71 @@
-.scores {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 25% 0 25%;
-}
-
-@media screen and (min-width:900) {
-    .scores > span {
-        margin: 0 5% 0 5%;
-    }
-}
-
 .scoreBoard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     margin: 0;
     color: white;
+    width: 60%;
+    height: clamp(20%, 30%, 40%);
 }
+
+.scoreBoard > button {
+    padding: 17px 40px;
+    border-radius: 50px;
+    border: 0;
+    background-color: white;
+    box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-size: 15px;
+    transition: all .5s ease;
+}
+
+.scoreBoard > button:hover {
+    letter-spacing: 3px;
+    background-color: hsl(261deg 80% 48%);
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
+}
+
+.scoreBoard > button:active {
+    letter-spacing: 3px;
+    background-color: hsl(261deg 80% 48%);
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+    transform: translateY(10px);
+    transition: 100ms;
+}
+
+.resultStateHidden, .scoreHidden {
+    visibility: hidden;
+}
+
+.scores {
+    display: grid;
+    grid: 50% 50%/ 50% 50%;
+    width: 30%;
+}
+
+.scores > div {
+    padding: 3%;
+}
+
+.p1head, .p2head {
+    border-bottom: 2px solid;
+}
+
+.p1head, .p1score {
+    border-right: 1px solid;
+}
+
+.p2head, .p2score {
+    border-left: 1px solid;
+}
+
+/* @media screen and (min-width:900) {
+    .scores > span {
+        margin: 0 25% 0 25%;
+    }
+} */
+

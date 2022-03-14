@@ -4,8 +4,9 @@
     background: -webkit-linear-gradient(bottom, #D1711A, #FFFF01);
     background: -moz-linear-gradient(bottom, #D1711A, #FFFF01);
     background: linear-gradient(to top, #D1711A, #FFFF01);
-    height: clamp(200px, 70%, 400px);
-    width: max(10vw, 200px);
+    /* height: clamp(200px, 70%, 400px);
+    width: max(10vw, 200px); */
+    aspect-ratio: 5/7;
     margin: 2%;
     padding: 10px;
     border: 3px solid black;
@@ -24,7 +25,7 @@
 }
 
 .attri {
-    font-size: min(0.2rem, 1rem)
+    font-size: min(0.5rem, 1rem)
 }
 
 .selected{

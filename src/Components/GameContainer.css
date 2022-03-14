@@ -8,7 +8,7 @@
     visibility: hidden;
     margin: 1%;
     padding: 1%;
-    height: 50%;
+    height: 40%;
     width: 100%;
 }
 
@@ -42,7 +42,21 @@
 
 @media screen and (max-width: 575px) {
     .cardContainer {
-        grid-template-rows: repeat(3, max(300px, 25%));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
+    .card {
+        height: 50%;
+    }
+
+    .cardInfo {
+        font-size: 0.65rem;
+    }
+
+    .drawBtn {
+        font-size: 0.5rem;
+        /* width: 40%; */
     }
 }

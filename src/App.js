@@ -68,7 +68,7 @@ function App() {
                 <h1>A Star Wars-inspired Top Trumps pun</h1>
                 <h2>Let's see who comes out on top</h2>
 
-                <button className='button'
+                <button className='btn'
                     onClick={gameStart}
                 >
                     Click to Start
