@@ -118,9 +118,11 @@ const GameContainer = (props) => {
 
     function resetGame() {
         var cardContainer = document.querySelector('.cardContainer')
+        var scoreBoard = document.querySelector('.scoreBoard')
         if (gameState !== 0 && cardContainer.classList.contains('visible')){
             clearSelection()
             cardContainer.classList.toggle('visible');
+            scoreBoard.classList.toggle('visible');
             setGameState(0);
         }
         setWinnerState("")
@@ -138,7 +140,7 @@ const GameContainer = (props) => {
                     info={cardInfo && cardInfo.firstPlayer}
                     setPlayerAttriState={setPlayerOne}
                     />
-                <button className='drawBtn'
+                <button className='drawBtn btn'
                     onClick={drawCharacter}
                 >
                     Draw your characters

@@ -1,4 +1,5 @@
-// import AppLogo from './Star-Wars-Symbol.png';
+import StarWars from './Star-Wars-Symbol.png';
+import TopTrumps from './Top_Trumps.svg';
 import './App.css';
 import { useState, useEffect } from 'react'
 import GameContainer from './Components/GameContainer.js'
@@ -54,20 +55,24 @@ function App() {
     function gameStart() {
 
         var cardContainer = document.querySelector('.cardContainer')
+        var scoreBoard = document.querySelector('.scoreBoard')
 
         if (gameState === 0 && !cardContainer.classList.contains('visible')){
             cardContainer.classList.toggle('visible');
+            scoreBoard.classList.toggle('visible');
             setGameState(1);
         }
     }
 
     return (
         <div className="App">
-        {/* <AppLogo/> */}
+        <div className="logoContainer">
+            <img className="logo1" src={StarWars} />
+            <img className="logo2" src={TopTrumps} />
+        </div>
             <div className="header">
-                <h1>A Star Wars-inspired Top Trumps pun</h1>
-                <h2>Let's see who comes out on top</h2>
-
+                <h2>Choose an attribute to beat your opponent</h2>
+                <h2>First to 5 wins</h2>
                 <button className='btn'
                     onClick={gameStart}
                 >

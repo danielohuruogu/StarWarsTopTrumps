@@ -1,5 +1,7 @@
 import './Scoreboard.css'
 
+// https://www.101computing.net/tally-marks-counter/
+
 export default function Scoreboard(props) {
 
     const { resultState, scores, winnerState, resetGame } = props
@@ -9,7 +11,9 @@ export default function Scoreboard(props) {
     let resultStateClass;
     // if resultState is in its default state
     if (resultState === 'empty') {
-        resultStateClass = 'resultStateHidden'
+        resultStateClass = 'resultState resultStateHidden'
+    } else {
+        resultStateClass = 'resultState'
     }
 
     // to show the score as a tally
@@ -64,7 +68,7 @@ export default function Scoreboard(props) {
                 </div>
             </div>
             <p>{winnerState}</p>
-            <button
+            <button className='btn'
                 onClick={resetGame}
             >
                 Restart
